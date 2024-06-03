@@ -1,5 +1,6 @@
 from pathlib import Path
 from pm import PhysicalMemory
+import argparse
 
 
 class VMManager:
@@ -93,11 +94,31 @@ class VMManager:
                     outfile.write("\n")
 
 
-if __name__ == "__main__":
-    data_folder = Path("sample-data")
-    init_file = data_folder / "sample-init-dp.txt"
-    input_file = data_folder / "sample-input-dp.txt"
-    output_file = "output.txt"
+def main(init_path, input_path, output_path):
     vm_manager = VMManager()
-    vm_manager.init(init_file)
-    vm_manager.execute(input_file, output_file)
+    vm_manager.init(init_path)
+    vm_manager.execute(input_path, output_path)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Virtual Memory Manager")
+    parser.add_argument(
+        "--init", type=str, required=True, help="Path to the init file (init.txt)"
+    )
+    parser.add_argument(
+        "--input", type=str, required=True, help="Path to the input file (input.txt)"
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        default="output.txt",
+        help="Path to the output file (default: output.txt in the same directory)",
+    )
+
+    args = parser.parse_args()
+
+    init_file = Path(args.init)
+    input_file = Path(args.input)
+    output_file = Path(args.output)
+
+    main(init_file, input_file, output_file)
