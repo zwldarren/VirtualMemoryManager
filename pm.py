@@ -42,6 +42,8 @@ class PhysicalMemory:
             index (int): Index to write to memory
             value (int): Value to write
         """
+        if index < 0 or index >= len(self._memory):
+            return
         self._memory[index] = value
 
     def read_block_from_disk(self, b: int, m: int):
@@ -85,6 +87,6 @@ class PhysicalMemory:
             else:
                 block_index = -self.read(2 * s + 1)
                 free_index = self.get_free_frame()
-                self._paging_disk[block_index][free_index] = f
+                self._paging_disk[block_index, free_index] = f
             if f >= 0:
                 self._free_frames[f] = False

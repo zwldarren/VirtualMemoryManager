@@ -60,7 +60,7 @@ class VMManager:
             # update PT entry
             self.pm.write(f1 * self.FRAME_SIZE + p, f2)
 
-        return f2 * self.FRAME_SIZE + w if f2 > 0 else -1
+        return f2 * self.FRAME_SIZE + w if f2 >= 0 else -1
 
     def execute(self, input_file: Path, output_file: Path) -> None:
         """Execute the commands in the input file and write the output to the output file.
