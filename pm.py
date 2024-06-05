@@ -86,7 +86,7 @@ class PhysicalMemory:
                 self.write(pt_start + p, f)
             else:
                 block_index = -self.read(2 * s + 1)
-                free_index = self.get_free_frame()
-                self._paging_disk[block_index, free_index] = f
+                self.get_free_frame()
+                self._paging_disk[block_index, p] = f
             if f >= 0:
                 self._free_frames[f] = False
